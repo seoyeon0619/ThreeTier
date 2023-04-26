@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="empdto">
+
+<select id="Emp_getList" parameterType="EmpDto" resultType="EmpDto">
+	select emp_id, emp_nm, dept_no, aprv_yn from emp_mng_tb
+	where emp_nm like '%' || #{searchKeyword} || '%'
+	order by aprv_yn='Y'
+</select>
+
+<insert id="Emp_insert" parameterType="EmpDto">
+	insert into emp_mng_tb
+	(
+		emp_id 
+		, emp_nm 
+		, eml_addr
+		, dept_no
+		, mbl_telno
+		, addr
+		, aprv_yn
+	)
+	values
+	(
+		#{emp_id}
+		, #{emp_nm} 
+		, #{eml_addr}
+		, #{dept_no}
+		, #{mbl_telno}
+		, #{addr}
+		, 'N'
+	)
+</insert>
+ 
+<select id="Emp_getView"  parameterType="EmpDto" resultType="EmpDto">
+	select emp_id
+			, emp_nm
+			, eml_addr
+			, dept_no
+			, addr
+			, mbl_telno
+	from emp_mng_tb 
+	where emp_id = #{emp_id}
+</select>
+
+<select id="Emp_getId" parameterType="EmpDto" resultType="EmpDto">
+	select emp_id from emp_mng_tb
+</select>
+
+<update id="Emp_update" parameterType="EmpDto">
+	update emp_mng_tb
+	set emp_nm = #{emp_nm}
+		, eml_addr = #{eml_addr}
+		, dept_no = #{dept_no}
+		, mbl_telno = #{mbl_telno}
+		, addr = #{addr}
+		, aprv_yn = 'Y'
+	where emp_id = #{emp_id} 
+</update>
+
+<delete id="Emp_delete" parameterType="EmpDto">
+	delete from emp_mng_tb where emp_id = #{emp_id}
+</delete>
+
+
+
+
+
+
+</mapper>
+
+
+

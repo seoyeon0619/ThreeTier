@@ -1,0 +1,4 @@
+rootProject.name = 'ThreeTierProject'
+include 'ThreeTier_PT'
+include 'ThreeTier_BT' 
+include 'ThreeTier_DT'

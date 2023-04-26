@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>관리자 상세보기</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head> 
+<body>
+
+	<div class="container" >
+		<h1> </h1>
+		<h3>관리자 상세보기</h3>
+		<hr>
+	<form role="form" th:action="@{/admin}"  method="post">
+		 <table class="table">
+		  <colgroup>
+		  	<col width="20%">
+		  	<col width="*">
+		  </colgroup>
+	
+		    <tbody>
+		      <tr>
+		    	<th>이름 검색</td>
+		    	<td>
+			    <div class="input-group-text">
+					<input type="text"  name="searchKeyword" id="searchKeyword" 
+					th:value="${searchKeyword}" 
+					class="form-control">
+			    	<button type="submit"  class="btn btn-dark" >검색</button>
+			    </div>
+		    	</td>
+		    	</tr>
+	 </div>   
+	 </form>
+<!---------------------------- 승인요청 리스트------------------------------>
+  <table align="left" style="width:100%">
+  <tr>
+  <td valign="top">
+	  <table class="table">
+	  <colgroup>
+	  	<col width="25%">
+	  	<col width="25%">
+	  	<col width="25%">
+	  	<col width="25">
+	  </colgroup>
+	  <thead>
+		  <tr>	
+		  	<th>아이디</th>
+		  	<th>사원명</th>
+		  	<th>부서</th>
+		  	<th>상태</th>
+		  <tr>
+	  </thead>
+	  <tbody>
+	  	<tr th:each="list : ${list}">
+	  		<td ><a th:text="${list.emp_id}" th:href="@{/admin/{emp_id}(emp_id=${list.emp_id})}"></a></td>
+	  		<td th:text="${list.emp_nm}"></td>
+	  		<td th:text="${list.dept_no}"></td>
+	  		<td>
+	  		<span th:if="${list.aprv_yn == 'N'}">승인요청</span>
+	  		<span th:unless="${list.aprv_yn == 'N'}">승인</span>
+	  		</td>
+	  	</tr>
+	
+	  </tbody>
+	</table>
+	</td>
+	
+	<td width="10%"></td>
+	
+<!------------------------------------------ view-------------------------------------->
+	<td valign="top">
+	  <table class="table" >
+		  <colgroup>
+		  	<col width="30%">
+		  	<col width="*">
+		  </colgroup>
+	
+	    <tbody>
+	    <tr>
+	      <th>아이디</td>
+	      <td>
+	      		<div class="input-group">
+	    			<input type="text" name="emp_id"  class="form-control"  disabled="disabled">
+	  			</div>
+	      </td>
+	      </tr>
+	    <tr>
+	      <th>사원명</td>
+	      <td>
+	      		<div class="input-group">
+	    			<input type="text" name="emp_nm" class="form-control" disabled="disabled">
+	  			</div>
+	      </td>
+	      </tr>
+	    
+	      <tr>
+	      <th>이메일</td>
+	      <td>
+	      		<div class="input-group">
+	    			<input type="email" name="eml_addr" class="form-control" disabled="disabled">
+	  			</div>
+	      </td>
+	      </tr>
+	      
+	      <tr>
+	      <th>부서</td>
+	      <td>
+	    		<div class="input-group">
+	    			<select name="dept_no" disabled="disabled">
+	    				</optgroup>
+	    			</select>
+	  			</div>
+	      </td>
+	      </tr>
+	      
+	      <tr>
+	      <th>전화번호</td>
+	      <td>
+	      		<div class="input-group">
+	    			<input type="tel" name="mbl_telno"  class="form-control" disabled="disabled">
+	  			</div>
+	      </td>
+	      </tr>
+	      
+	      <tr>
+	      <th>주소</td>
+	      <td>
+	      		<div class="input-group">
+	    			<input type="text" name="addr" class="form-control" disabled="disabled">
+	  			</div>
+	      </td>
+	      </tr>
+	      
+	      <tr>
+	      <th>취미</td>
+	      <td>
+	      		<div th:each="hobby : ${list_h}" class="form-check">
+	      			<input type="checkbox" name="hobby_cd"  th:value="${hobby.hobby_cd}" class="form-check-input" 
+	      					disabled="disabled">
+	      			<label  th:text="${hobby.hobby_cn}" class="form-check-label"></label>
+	  			</div>
+	      </td>
+	     </tr>
+		 
+	      <tr>
+	      <th></td>
+	      <td>
+				<div class="container" style="text-align:right">
+					<button type="submit" class="btn btn-dark" disabled="disabled">저장</button>
+					<button type="button" class="btn btn-dark" disabled="disabled">삭제</button>
+	  			</div>
+	      </td>
+	      </tr>
+		 
+	    </tbody>
+	  </table>
+  </td>
+  </tr>
+  </table>
+</body>
+</html>
